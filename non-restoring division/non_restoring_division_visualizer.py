@@ -449,7 +449,7 @@ class NonRestoringDivision(Scene):
             if new_sign_A == "1":
                 # Result is negative: Set Q0 = 0
                 new_cond_text = Text("Result A is Negative (MSB=1)", font_size=13, font="Arial", color=RED_B).move_to(cond_text.get_center())
-                new_act_text = Text("Set Q0 ⟵ 0", font_size=13, font="Arial", color=RED).move_to(act_text.get_center())
+                new_act_text = Text("Set Q0 <- 0", font_size=13, font="Arial", color=RED).move_to(act_text.get_center())
                 
                 self.play(
                     cond_text.animate.become(new_cond_text),
@@ -467,7 +467,7 @@ class NonRestoringDivision(Scene):
             else:
                 # Result is positive: Set Q0 = 1
                 new_cond_text = Text("Result A is Positive (MSB=0)", font_size=13, font="Arial", color=GREEN_B).move_to(cond_text.get_center())
-                new_act_text = Text("Set Q0 ⟵ 1", font_size=13, font="Arial", color=GREEN).move_to(act_text.get_center())
+                new_act_text = Text("Set Q0 <- 1", font_size=13, font="Arial", color=GREEN).move_to(act_text.get_center())
                 
                 self.play(
                     cond_text.animate.become(new_cond_text),

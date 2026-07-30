@@ -328,7 +328,7 @@ class RestoringDivision(Scene):
             
             # --- PHASE B: SUBTRACTION ---
             new_cond_text = Text("Subtract Divisor", font_size=13, font="Arial", color=WHITE).move_to(cond_text.get_center())
-            new_act_text = Text("Action: A ⟵ A - M", font_size=13, font="Arial", color=YELLOW).move_to(act_text.get_center())
+            new_act_text = Text("Action: A <- A - M", font_size=13, font="Arial", color=YELLOW).move_to(act_text.get_center())
             self.play(
                 cond_text.animate.become(new_cond_text),
                 act_text.animate.become(new_act_text),
@@ -398,7 +398,7 @@ class RestoringDivision(Scene):
             if msb_A_sub == "1":
                 # Negative: Restore A and Q0 = 0
                 new_cond_text = Text("MSB of A is 1 (Negative)", font_size=13, font="Arial", color=RED_B).move_to(cond_text.get_center())
-                new_act_text = Text("Restore: Q0 ⟵ 0 & A ⟵ A + M", font_size=13, font="Arial", color=YELLOW).move_to(act_text.get_center())
+                new_act_text = Text("Restore: Q0 <- 0 & A <- A + M", font_size=13, font="Arial", color=YELLOW).move_to(act_text.get_center())
                 
                 self.play(
                     cond_text.animate.become(new_cond_text),
@@ -471,7 +471,7 @@ class RestoringDivision(Scene):
             else:
                 # Positive: Set Q0 = 1
                 new_cond_text = Text("MSB of A is 0 (Positive)", font_size=13, font="Arial", color=GREEN_B).move_to(cond_text.get_center())
-                new_act_text = Text("Set Q0 ⟵ 1 (No Restoration)", font_size=13, font="Arial", color=GREEN).move_to(act_text.get_center())
+                new_act_text = Text("Set Q0 <- 1 (No Restoration)", font_size=13, font="Arial", color=GREEN).move_to(act_text.get_center())
                 
                 self.play(
                     cond_text.animate.become(new_cond_text),
