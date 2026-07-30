@@ -38,7 +38,6 @@ Ensure dependencies are installed:
 ```bash
 pip install -r requirements.txt
 ```
-*(Note: If `requirements.txt` is not present, just `pip install manim` is sufficient!)*
 
 ---
 
