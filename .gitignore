@@ -1,0 +1,12 @@
+# Manim generated files
+**/media/
+**/temp_booth_scene.py
+booth_temp/
+
+# Python caches
+**/__pycache__/
+*.pyc
+
+# IDEs
+.idea/
+.vscode/
