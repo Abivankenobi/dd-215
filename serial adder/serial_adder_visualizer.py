@@ -309,9 +309,9 @@ class SerialAdder(Scene):
             new_act_text = Text(f"Outputs: s_i={{sum_bit}}, Cout={{cout_bit}}", font_size=13, font="Arial", color=YELLOW).move_to(act_text.get_center())
             
             self.play(
-                Transform(step_text, new_step_text),
-                Transform(cond_text, new_cond_text),
-                Transform(act_text, new_act_text),
+                step_text.animate.become(new_step_text),
+                cond_text.animate.become(new_cond_text),
+                act_text.animate.become(new_act_text),
                 trace_items[idx].animate.set_color(GRAY_C),
                 trace_items[idx+1].animate.set_color(YELLOW),
                 run_time=0.4
@@ -385,7 +385,7 @@ class SerialAdder(Scene):
             # Carry DFF value update: DFF flashes, updates stored carry label
             shift_anims.append(Flash(dff_box, color=PURPLE, flash_radius=0.4))
             new_dff_label = Text(cout_bit, font_size=24, font="Courier New", color=PURPLE_A).move_to(dff_box.get_center() + DOWN*0.18)
-            shift_anims.append(Transform(dff_label, new_dff_label))
+            shift_anims.append(dff_label.animate.become(new_dff_label))
             shift_anims.append(FadeOut(cout_out))
             
             self.play(*shift_anims, run_time=1.0)
@@ -422,9 +422,9 @@ class SerialAdder(Scene):
         new_act_text = Text(f"Final Carry: {{final_carry}}", font_size=13, font="Arial", color=PURPLE_B).move_to(act_text.get_center())
         
         self.play(
-            Transform(step_text, new_step_text),
-            Transform(cond_text, new_cond_text),
-            Transform(act_text, new_act_text),
+            step_text.animate.become(new_step_text),
+            cond_text.animate.become(new_cond_text),
+            act_text.animate.become(new_act_text),
             run_time=0.4
         )
         
