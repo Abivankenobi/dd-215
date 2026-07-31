@@ -392,7 +392,7 @@ class SerialAdder(Scene):
             self.wait(0.5)
             
             # Clean swap register labels for next cycle
-            self.remove(reg_A.labels, reg_B.labels, sum_out, new_b_msb, dff_label)
+            self.remove(*reg_A.labels, *reg_B.labels, sum_out, new_b_msb, dff_label)
             
             reg_A.labels = VGroup(*[
                 Text(new_A[idx], font_size=20, font="Courier New", color=WHITE).move_to(reg_A.boxes[idx].get_center()) 

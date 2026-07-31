@@ -310,7 +310,7 @@ class RestoringDivision(Scene):
             self.wait(0.5)
             
             # Clean swap shifted values
-            self.remove(reg_A.labels, reg_Q.labels, temp_q0_label)
+            self.remove(*reg_A.labels, *reg_Q.labels, temp_q0_label)
             
             reg_A.labels = VGroup(*[
                 Text(char, font_size=20, font="Courier New", color=WHITE).move_to(box.get_center()) 
@@ -490,7 +490,7 @@ class RestoringDivision(Scene):
             self.play(FadeOut(msb_highlight), run_time=0.3)
             
             # Swap labels to final values for the step (with white color)
-            self.remove(reg_A.labels, reg_Q.labels)
+            self.remove(*reg_A.labels, *reg_Q.labels)
             
             reg_A.labels = VGroup(*[
                 Text(char, font_size=20, font="Courier New", color=WHITE).move_to(box.get_center()) 
