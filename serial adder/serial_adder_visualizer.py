@@ -257,10 +257,11 @@ class SerialAdder(Scene):
         cond_text = Text("Inputs: a_i=--, b_i=--, Cin=--", font_size=13, font="Arial", color=WHITE)
         act_text = Text("Outputs: s_i=--, Cout=--", font_size=13, font="Arial", color=YELLOW)
         
+        # Arrange positions but do not add composite texts_group to the scene
         texts_group = VGroup(step_text, cond_text, act_text).arrange(DOWN, aligned_edge=LEFT, buff=0.1)
         texts_group.move_to(info_box.get_center())
         
-        self.play(FadeIn(info_box), FadeIn(info_title), FadeIn(texts_group))
+        self.play(FadeIn(info_box), FadeIn(info_title), FadeIn(step_text), FadeIn(cond_text), FadeIn(act_text))
         
         # 6. Right Trace Panel
         trace_box = Rectangle(
@@ -308,9 +309,9 @@ class SerialAdder(Scene):
             new_act_text = Text(f"Outputs: s_i={{sum_bit}}, Cout={{cout_bit}}", font_size=13, font="Arial", color=YELLOW).move_to(act_text.get_center())
             
             self.play(
-                step_text.animate.become(new_step_text),
-                cond_text.animate.become(new_cond_text),
-                act_text.animate.become(new_act_text),
+                Transform(step_text, new_step_text),
+                Transform(cond_text, new_cond_text),
+                Transform(act_text, new_act_text),
                 trace_items[idx].animate.set_color(GRAY_C),
                 trace_items[idx+1].animate.set_color(YELLOW),
                 run_time=0.4
@@ -421,9 +422,9 @@ class SerialAdder(Scene):
         new_act_text = Text(f"Final Carry: {{final_carry}}", font_size=13, font="Arial", color=PURPLE_B).move_to(act_text.get_center())
         
         self.play(
-            step_text.animate.become(new_step_text),
-            cond_text.animate.become(new_cond_text),
-            act_text.animate.become(new_act_text),
+            Transform(step_text, new_step_text),
+            Transform(cond_text, new_cond_text),
+            Transform(act_text, new_act_text),
             run_time=0.4
         )
         
@@ -452,7 +453,7 @@ class SerialAdder(Scene):
         summary_content.move_to(summary_box.get_center())
         
         self.play(
-            FadeOut(info_box), FadeOut(info_title), FadeOut(texts_group),
+            FadeOut(info_box), FadeOut(info_title), FadeOut(step_text), FadeOut(cond_text), FadeOut(act_text),
             FadeIn(summary_box), FadeIn(summary_title), FadeIn(summary_content),
             run_time=0.8
         )

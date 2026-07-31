@@ -215,13 +215,14 @@ class RestoringDivision(Scene):
         info_title.next_to(info_box, UP, aligned_edge=LEFT, buff=0.08)
         
         step_text = Text("Step: --", font_size=13, font="Arial", color=WHITE)
-        cond_text = Text("MSB of A: --", font_size=13, font="Arial", color=WHITE)
+        cond_text = Text("Condition: --", font_size=13, font="Arial", color=WHITE)
         act_text = Text("Action: --", font_size=13, font="Arial", color=YELLOW)
         
+        # Arrange positions but do not add composite texts_group to the scene
         texts_group = VGroup(step_text, cond_text, act_text).arrange(DOWN, aligned_edge=LEFT, buff=0.1)
         texts_group.move_to(info_box.get_center())
         
-        self.play(FadeIn(info_box), FadeIn(info_title), FadeIn(texts_group))
+        self.play(FadeIn(info_box), FadeIn(info_title), FadeIn(step_text), FadeIn(cond_text), FadeIn(act_text))
         
         # 5. Right Trace Panel
         trace_box = Rectangle(
@@ -274,9 +275,9 @@ class RestoringDivision(Scene):
             new_act_text = Text("Action: Shift A and Q left", font_size=13, font="Arial", color=GOLD_B).move_to(act_text.get_center())
             
             self.play(
-                step_text.animate.become(new_step_text),
-                cond_text.animate.become(new_cond_text),
-                act_text.animate.become(new_act_text),
+                Transform(step_text, new_step_text),
+                Transform(cond_text, new_cond_text),
+                Transform(act_text, new_act_text),
                 trace_items[i].animate.set_color(GRAY_C),
                 trace_items[i+1].animate.set_color(YELLOW),
                 run_time=0.4
@@ -327,8 +328,8 @@ class RestoringDivision(Scene):
             new_cond_text = Text("Subtract Divisor", font_size=13, font="Arial", color=WHITE).move_to(cond_text.get_center())
             new_act_text = Text("Action: A <- A - M", font_size=13, font="Arial", color=YELLOW).move_to(act_text.get_center())
             self.play(
-                cond_text.animate.become(new_cond_text),
-                act_text.animate.become(new_act_text),
+                Transform(cond_text, new_cond_text),
+                Transform(act_text, new_act_text),
                 run_time=0.3
             )
             
@@ -398,8 +399,8 @@ class RestoringDivision(Scene):
                 new_act_text = Text("Restore: Q0 <- 0 & A <- A + M", font_size=13, font="Arial", color=YELLOW).move_to(act_text.get_center())
                 
                 self.play(
-                    cond_text.animate.become(new_cond_text),
-                    act_text.animate.become(new_act_text),
+                    Transform(cond_text, new_cond_text),
+                    Transform(act_text, new_act_text),
                     run_time=0.3
                 )
                 self.wait(0.5)
@@ -471,8 +472,8 @@ class RestoringDivision(Scene):
                 new_act_text = Text("Set Q0 <- 1 (No Restoration)", font_size=13, font="Arial", color=GREEN).move_to(act_text.get_center())
                 
                 self.play(
-                    cond_text.animate.become(new_cond_text),
-                    act_text.animate.become(new_act_text),
+                    Transform(cond_text, new_cond_text),
+                    Transform(act_text, new_act_text),
                     run_time=0.3
                 )
                 self.wait(0.5)
@@ -518,9 +519,9 @@ class RestoringDivision(Scene):
         new_act_text = Text(f"Q = {{final_Q}} | A = {{final_A}}", font_size=13, font="Arial", color=GREEN).move_to(act_text.get_center())
         
         self.play(
-            step_text.animate.become(new_step_text),
-            cond_text.animate.become(new_cond_text),
-            act_text.animate.become(new_act_text),
+            Transform(step_text, new_step_text),
+            Transform(cond_text, new_cond_text),
+            Transform(act_text, new_act_text),
             run_time=0.4
         )
         
@@ -557,7 +558,7 @@ class RestoringDivision(Scene):
         summary_content.move_to(summary_box.get_center())
         
         self.play(
-            FadeOut(info_box), FadeOut(info_title), FadeOut(texts_group),
+            FadeOut(info_box), FadeOut(info_title), FadeOut(step_text), FadeOut(cond_text), FadeOut(act_text),
             FadeIn(summary_box), FadeIn(summary_title), FadeIn(summary_content),
             run_time=0.8
         )

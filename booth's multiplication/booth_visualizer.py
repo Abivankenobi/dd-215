@@ -240,10 +240,11 @@ class BoothMultiplication(Scene):
         cond_text = Text("Scan bits Q_0, Q_-1: --", font_size=13, font="Arial", color=WHITE)
         act_text = Text("Action: --", font_size=13, font="Arial", color=YELLOW)
         
+        # Arrange positions but do not add composite texts_group to the scene
         texts_group = VGroup(step_text, cond_text, act_text).arrange(DOWN, aligned_edge=LEFT, buff=0.1)
         texts_group.move_to(info_box.get_center())
         
-        self.play(FadeIn(info_box), FadeIn(info_title), FadeIn(texts_group))
+        self.play(FadeIn(info_box), FadeIn(info_title), FadeIn(step_text), FadeIn(cond_text), FadeIn(act_text))
         
         # 5. Right Trace Panel
         trace_box = Rectangle(
@@ -301,12 +302,13 @@ class BoothMultiplication(Scene):
             else:
                 act_str = "Action: No arithmetic operation"
                 
-            new_act_text = Text(act_str, font_size=13, font="Arial", color=YELLOW).move_to(act_text.get_center())
+            new_act_text = Text(act_str, font_size=13, font="Arial", color=YELLOW)
+            new_act_text.move_to(act_text.get_center())
             
             self.play(
-                step_text.animate.become(new_step_text),
-                cond_text.animate.become(new_cond_text),
-                act_text.animate.become(new_act_text),
+                Transform(step_text, new_step_text),
+                Transform(cond_text, new_cond_text),
+                Transform(act_text, new_act_text),
                 trace_items[i].animate.set_color(GRAY_C),
                 trace_items[i+1].animate.set_color(YELLOW),
                 run_time=0.4
@@ -453,9 +455,9 @@ class BoothMultiplication(Scene):
         new_act_text = Text(f"Product = {{prod_val}}", font_size=13, font="Arial", color=GREEN).move_to(act_text.get_center())
         
         self.play(
-            step_text.animate.become(new_step_text),
-            cond_text.animate.become(new_cond_text),
-            act_text.animate.become(new_act_text),
+            Transform(step_text, new_step_text),
+            Transform(cond_text, new_cond_text),
+            Transform(act_text, new_act_text),
             run_time=0.4
         )
         
@@ -485,7 +487,7 @@ class BoothMultiplication(Scene):
         summary_content.move_to(summary_box.get_center())
         
         self.play(
-            FadeOut(info_box), FadeOut(info_title), FadeOut(texts_group),
+            FadeOut(info_box), FadeOut(info_title), FadeOut(step_text), FadeOut(cond_text), FadeOut(act_text),
             FadeIn(summary_box), FadeIn(summary_title), FadeIn(summary_content),
             run_time=0.8
         )
