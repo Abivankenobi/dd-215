@@ -171,7 +171,7 @@ class SerialAdder(Scene):
         fa_box = Rectangle(width=2.2, height=1.6, stroke_color=BLUE, fill_color="#18181C", fill_opacity=0.9)
         fa_box.move_to(np.array([1.2, 0.5, 0.0]))
         fa_label = Text("Full Adder", font_size=14, color=BLUE, font="Arial").move_to(fa_box.get_center() + UP*0.4)
-        fa_expr = Text("S = A ⊕ B ⊕ Cin\\nCout = AB + Cin(A⊕B)", font_size=9, font="Courier New", color=GRAY_A).move_to(fa_box.get_center() + DOWN*0.2)
+        fa_expr = Text("S = A ^ B ^ Cin\\nCout = AB + Cin(A ^ B)", font_size=9, font="Courier New", color=GRAY_A).move_to(fa_box.get_center() + DOWN*0.2)
         fa_group = VGroup(fa_box, fa_label, fa_expr)
         
         # Carry D Flip-flop (DFF) Box
@@ -184,9 +184,9 @@ class SerialAdder(Scene):
         # DFF Clock Input Triangle
         clk_triangle = Triangle(stroke_color=PURPLE, stroke_width=2).scale(0.08).rotate(-PI/2).move_to(dff_box.get_left())
         
-        dff_group = VGroup(dff_box, dff_label_title, dff_stored_title, dff_label, clk_triangle)
+        dff_group = VGroup(dff_box, dff_label_title, dff_stored_title, clk_triangle)
         
-        self.play(FadeIn(fa_group), FadeIn(dff_group), run_time=0.8)
+        self.play(FadeIn(fa_group), FadeIn(dff_group), FadeIn(dff_label), run_time=0.8)
         
         # 4. Connecting Signal Wires
         # Wire A (LSB of Reg A to FA top-left input)
@@ -383,15 +383,15 @@ class SerialAdder(Scene):
             
             # Carry DFF value update: DFF flashes, updates stored carry label
             shift_anims.append(Flash(dff_box, color=PURPLE, flash_radius=0.4))
-            new_dff_label = Text(cout_bit, font_size=24, font="Courier New", color=PURPLE_A).move_to(dff_box.get_center())
-            shift_anims.append(dff_label.animate.become(new_dff_label))
+            new_dff_label = Text(cout_bit, font_size=24, font="Courier New", color=PURPLE_A).move_to(dff_box.get_center() + DOWN*0.18)
+            shift_anims.append(Transform(dff_label, new_dff_label))
             shift_anims.append(FadeOut(cout_out))
             
             self.play(*shift_anims, run_time=1.0)
             self.wait(0.5)
             
             # Clean swap register labels for next cycle
-            self.remove(reg_A.labels, reg_B.labels, sum_out, new_b_msb)
+            self.remove(reg_A.labels, reg_B.labels, sum_out, new_b_msb, dff_label)
             
             reg_A.labels = VGroup(*[
                 Text(new_A[idx], font_size=20, font="Courier New", color=WHITE).move_to(reg_A.boxes[idx].get_center()) 
@@ -401,8 +401,9 @@ class SerialAdder(Scene):
                 Text(new_B[idx], font_size=20, font="Courier New", color=WHITE).move_to(reg_B.boxes[idx].get_center()) 
                 for idx in range(n)
             ])
+            dff_label = Text(cout_bit, font_size=24, font="Courier New", color=PURPLE_A).move_to(dff_box.get_center() + DOWN*0.18)
             
-            self.add(reg_A.labels, reg_B.labels)
+            self.add(reg_A.labels, reg_B.labels, dff_label)
             
             self.wait(0.8)
             
