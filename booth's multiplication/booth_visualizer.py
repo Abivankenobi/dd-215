@@ -217,14 +217,13 @@ class BoothMultiplication(Scene):
             Text("0", font_size=20, font="Courier New", color=WHITE).move_to(reg_Qm1.boxes[0].get_center())
         )
         
-        reg_A.add(reg_A.labels)
-        reg_Q.add(reg_Q.labels)
-        reg_Qm1.add(reg_Qm1.labels)
-        
         self.play(
             FadeIn(reg_A),
             FadeIn(reg_Q),
             FadeIn(reg_Qm1),
+            FadeIn(reg_A.labels),
+            FadeIn(reg_Q.labels),
+            FadeIn(reg_Qm1.labels),
             run_time=0.8
         )
         
@@ -436,10 +435,6 @@ class BoothMultiplication(Scene):
             reg_Qm1.labels = VGroup(
                 Text(new_qm1, font_size=20, font="Courier New", color=WHITE).move_to(reg_Qm1.boxes[0].get_center())
             )
-            
-            reg_A.add(reg_A.labels)
-            reg_Q.add(reg_Q.labels)
-            reg_Qm1.add(reg_Qm1.labels)
             
             self.add(reg_A.labels, reg_Q.labels, reg_Qm1.labels)
             self.wait(0.8)

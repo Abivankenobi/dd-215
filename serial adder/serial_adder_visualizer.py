@@ -158,10 +158,13 @@ class SerialAdder(Scene):
             for idx in range(n)
         ])
         
-        reg_A.add(reg_A.labels)
-        reg_B.add(reg_B.labels)
-        
-        self.play(FadeIn(reg_A), FadeIn(reg_B), run_time=0.8)
+        self.play(
+            FadeIn(reg_A), 
+            FadeIn(reg_B), 
+            FadeIn(reg_A.labels), 
+            FadeIn(reg_B.labels), 
+            run_time=0.8
+        )
         
         # 3. Hardware Blocks
         # Full Adder (FA) Box
@@ -399,8 +402,6 @@ class SerialAdder(Scene):
                 for idx in range(n)
             ])
             
-            reg_A.add(reg_A.labels)
-            reg_B.add(reg_B.labels)
             self.add(reg_A.labels, reg_B.labels)
             
             self.wait(0.8)

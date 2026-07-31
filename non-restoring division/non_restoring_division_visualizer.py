@@ -222,12 +222,11 @@ class NonRestoringDivision(Scene):
             for char, box in zip(Q_bin, reg_Q.boxes)
         ])
         
-        reg_A.add(reg_A.labels)
-        reg_Q.add(reg_Q.labels)
-        
         self.play(
             FadeIn(reg_A),
             FadeIn(reg_Q),
+            FadeIn(reg_A.labels),
+            FadeIn(reg_Q.labels),
             run_time=0.8
         )
         
@@ -366,8 +365,6 @@ class NonRestoringDivision(Scene):
                 for char, box in zip(Q_shifted, reg_Q.boxes)
             ])
             
-            reg_A.add(reg_A.labels)
-            reg_Q.add(reg_Q.labels)
             self.add(reg_A.labels, reg_Q.labels)
             self.wait(0.5)
             
@@ -498,8 +495,6 @@ class NonRestoringDivision(Scene):
                 for char, box in zip(new_Q, reg_Q.boxes)
             ])
             
-            reg_A.add(reg_A.labels)
-            reg_Q.add(reg_Q.labels)
             self.add(reg_A.labels, reg_Q.labels)
             
             self.wait(0.8)
@@ -592,7 +587,6 @@ class NonRestoringDivision(Scene):
                 Text(char, font_size=20, font="Courier New", color=WHITE).move_to(box.get_center()) 
                 for char, box in zip(post_correction["new_A"], reg_A.boxes)
             ])
-            reg_A.add(reg_A.labels)
             self.add(reg_A.labels)
             self.wait(0.5)
             
